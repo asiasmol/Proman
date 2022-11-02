@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect
 from dotenv import load_dotenv
 from util import json_response
 import mimetypes
@@ -10,20 +10,19 @@ load_dotenv()
 
 @app.route("/")
 def index():
-    """
-    This is a one-pager which shows all the boards and cards
-    """
     return render_template('index.html')
 
 
 @app.route("/api/boards")
 @json_response
 def get_boards():
-    """
-    All the boards
-    """
     return queries.get_boards()
 
+@app.route('/api/boards', methods=['POST'])
+def save_boards():
+    name_new_board = request.get_json()
+    print(name_new_board)
+    return redirect(url_for("index"))
 
 @app.route("/api/boards/<int:board_id>/cards/")
 @json_response
