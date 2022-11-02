@@ -1,9 +1,13 @@
 from flask import Flask, render_template, url_for, redirect, session, flash, request
-from werkzeug.security import generate_password_hash, check_password_hash
-from dotenv import load_dotenv
-from util import json_response
-import mimetypes
 import queries
+import mimetypes
+from util import json_response
+from dotenv import load_dotenv
+from flask import Flask, render_template, url_for, request, redirect
+from werkzeug.security import generate_password_hash, check_password_hash
+<< << << << < Temporary merge branch 1
+== == == == =
+>>>>>>>> > Temporary merge branch 2
 
 mimetypes.add_type('application/javascript', '.js')
 app = Flask(__name__)
@@ -23,9 +27,14 @@ def get_logged_user():
 
 @app.route("/")
 def index():
-    if 'id' in session:
-        return render_template('index.html', logged_user=get_logged_user())
-    return render_template('index.html')
+
+
+<< << << << < Temporary merge branch 1
+if 'id' in session:
+    return render_template('index.html', logged_user=get_logged_user())
+== == == == =
+>>>>>>>> > Temporary merge branch 2
+return render_template('index.html')
 
 
 @app.route("/registration", methods=['GET'])
@@ -92,11 +101,13 @@ def get_boards():
     return queries.get_boards()
 
 
-@app.route('/api/boards', methods=['POST'])
+@app.route('/api/boards/add', methods=['POST'])
 def save_boards():
     name_new_board = request.get_json()
-    print(name_new_board)
-    return redirect(url_for("index"))
+    print(name_new_board['nameBoard'])
+    queries.add_new_board(name_new_board['nameBoard'])
+    print("dupa")
+    return redirect(url_for('index'))
 
 
 @app.route("/api/boards/<int:board_id>/cards/")

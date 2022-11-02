@@ -96,3 +96,12 @@ def delete_card_from_board(card_id):
         WHERE id = %(card_id)s
         """, {"card_id": card_id}
     )
+
+
+def add_new_board(board):
+    query = """
+                INSERT INTO boards(title)
+                VALUES (%(board)s);
+                    """
+    data_manager.execute_insert(query,
+                                {'board': board})

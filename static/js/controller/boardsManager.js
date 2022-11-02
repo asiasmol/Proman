@@ -7,11 +7,12 @@ let saveButton = document.getElementById('save-button')
 saveButton.addEventListener('click', () => {
     let nameBoard = document.querySelector('#new-board').value
     let data = {'nameBoard': nameBoard}
-    fetch('/api/boards',{
+    fetch('/api/boards/add',{
         "method": 'POST',
         "headers": {"Content-Type": "application/json"},
         "body": JSON.stringify(data)
     })
+    location.reload(true)
 })
 
 export let boardsManager = {
