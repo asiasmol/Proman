@@ -19,13 +19,6 @@ def get_card_status(status_id):
 
 
 def get_boards():
-    """
-    Gather all boards
-    :return:
-    """
-    # remove this code once you implement the database
-    return [{"title": "board1", "id": 1}, {"title": "board2", "id": 2}]
-
     return data_manager.execute_select(
         """
         SELECT * FROM boards
@@ -35,9 +28,6 @@ def get_boards():
 
 
 def get_cards_for_board(board_id):
-    # remove this code once you implement the database
-    return [{"title": "title1", "id": 1}, {"title": "board2", "id": 2}]
-
     matching_cards = data_manager.execute_select(
         """
         SELECT * FROM cards
@@ -47,3 +37,34 @@ def get_cards_for_board(board_id):
         , {"board_id": board_id})
 
     return matching_cards
+
+def add_user(new_user):
+    query = """
+            INSERT INTO users
+            (user_name, password)
+            VALUES (%(user_name)s, %(password)s);
+                """
+    data_manager.execute_insert(query,
+                   {'user_name': new_user['user_name'], 'password': new_user['password']})
+
+def get_user_name(user_name):
+    return data_manager.execute_select(
+        """
+        SELECT COUNT(user_name)
+        FROM users
+        WHERE user_name = %(username)s
+        ;
+        """
+        , {"username": user_name}, False)
+
+
+def get_user_password(user_name):
+    return data_manager.execute_select(
+        """
+        SELECT id,password
+        FROM users
+        WHERE user_name = %(username)s
+        ;
+        """
+        , {'username': user_name}, False
+    )

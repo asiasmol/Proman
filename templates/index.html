@@ -15,6 +15,26 @@
         <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
     </head>
     <body>
-        <div id="root"></div>
+        <nav>
+            <div class="logo">
+                <img src="/static/proman-logo.png">
+            </div>
+            <div class="icon">
+                <span class="toggle">☰</span>
+            </div>
+            <ul class="list-item">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('registration_page') }}">Registration</a></li>
+                <li><a href="{{ url_for('get_login_page') }}">Login</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+            {% if not logged_user %}
+            <span class="navbar-text"></span>
+            {% else %}
+            <span class="navbar-text">Signed in as: {{ logged_user.user_name }}</span>
+            {% endif %}
+        </nav>
+
+    <div id="root"></div>
     </body>
 </html>

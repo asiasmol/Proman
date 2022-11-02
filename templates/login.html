@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>ProMan</title>
+
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='favicon/favicon-96x96.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+        <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+    </head>
+    <body>
+    <nav>
+        <div class="logo">
+            <img src="/static/proman-logo.png">
+        </div>
+        <div class="icon">
+            <span class="toggle">☰</span>
+        </div>
+        <ul class="list-item">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('registration_page') }}">Registration</a></li>
+            <li><a href="{{ url_for('get_login_page') }}">Login</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+        {% if not logged_user %}
+            <span class="navbar-text"></span>
+        {% else %}
+            <span class="navbar-text">Signed in as: {{ logged_user.user_name }}</span>
+        {% endif %}
+    </nav>
+    <h1> Login </h1>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <h3 class="flash">{{msg}}</h3>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div>
+            <form class="form-container" action="{{ url_for('login_user') }}" method="POST">
+                <div class="container-logging">
+                    <div class="logging-item">
+                        <input type="text" name="login_username" placeholder="Username">
+                    </div>
+                    <div class="logging-item">
+                        <input type="text" name="login_password" placeholder="Password">
+                    </div>
+                    <div class="logging-item">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </body>
+</html>
