@@ -34,6 +34,20 @@ def get_cards_for_board(board_id: int):
     """
     return queries.get_cards_for_board(board_id)
 
+@app.route("/api/create/card/", methods=["POST"])
+@json_response
+def create_new_card():
+    card = request.get_json()
+    card_title = card['title']
+    board_id = card['board_id']
+    queires.create_card(card_title, board_id)
+    return 'card created'
+
+@app.route("/api/<card_id>/delete_card/", methods=['DELETE'])
+@json_response
+def delete_card_from_board(card_id):
+    if request.method == "DELETE":
+        queires.delete_card_from_board(card_id)
 
 def main():
     app.run(debug=True)
