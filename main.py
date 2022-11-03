@@ -116,22 +116,20 @@ def get_cards_for_board(board_id: int):
 @json_response
 def add_new_card(board_id):
     title = request.get_json()
-    first_col = queires.get_first_column_of_board(board_id)
-    return queires.add_new_card(first_col["id"], title)
-
+    first_col = queries.get_first_column_of_board(board_id)
+    return queries.add_new_card(first_col['id'],title)
 
 @app.route("/api/cards/<int:card_id>/change_name", methods=["PUT"])
 @json_response
 def rename_card(card_id: int):
     name = request.get_json()
-    return queires.update_card_title(card_id, name)
+    return queries.update_card_title(card_id,name)
 
 @app.route("/api/cards/<int:card_id>/delete", methods=["DELETE"])
 @json_response
 def delete_card(card_id):
-    queires.delete_card(card_id)
+    queries.delete_card(card_id)
     return "Card deleted"
-
 
 def main():
     app.run(debug=True)

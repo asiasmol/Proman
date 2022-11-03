@@ -16,7 +16,6 @@ def get_card_status(status_id):
 
     return status
 
-
 def get_boards():
     return data_manager.execute_select(
         """
@@ -93,6 +92,15 @@ def add_new_column_to_board(board_id, column_title):
         RETURNING *;
         """, {"board_id": board_id, "column_title": column_title})
 
+def get_first_column_of_board(board_id):
+    return data_manager.execute_select(
+        """
+        SELECT id
+        FROM board_columns
+        WHERE board_id = %(board_id)s
+        ORDER BY id;
+        """
+        , {"board_id": board_id}, False)
 
 def add_new_card(column_id, title):
     return data_manager.execute_select(

@@ -17,22 +17,31 @@ saveButton.addEventListener('click', () => {
 
 export let boardsManager = {
     loadBoards: async function () {
-        const boards = await dataHandler.getBoards();
+        const boards = await dataHandler.getBoards(boardsManager.user);
+        this.createBoardButtonListeners(boardsManager.user);
         for (let board of boards) {
+            const columns = await dataHandler.getColumnsByBoardId(board.id)
             const boardBuilder = htmlFactory(htmlTemplates.board);
-            const content = boardBuilder(board);
+            const content = boardBuilder(board, columns);
             domManager.addChild("#root", content);
-            domManager.addEventListener(
-                `.toggle-board-button[data-board-id="${board.id}"]`,
-                "click",
-                showHideButtonHandler
-            );
-        }
+            this.eventListeners(board, columns)
+            await cardsManager.loadCards(board.id);}
     },
-};
-
-function showHideButtonHandler(clickEvent) {
-    const boardId = clickEvent.target.dataset.boardId;
-    cardsManager.loadCards(boardId);
+    createBoardButtonListeners: function () {
+        domManager.addEventListener(
+            '.new-board-public',
+            "click",
+            createBoard
+        );
+    }
 }
 
+async function createPublicBoard() {
+    const newBoard = await dataHandler.createBoard();
+    const columns = await dataHandler.getColumnsByBoardId(newBoard.id);
+    const boardBuilder = htmlFactory(htmlTemplates.board);
+    const content = boardBuilder(newBoard, columns);
+    domManager.addChild("#root", content);
+    boardsManager.eventListeners(newBoard, columns)
+    await boardsManager.saveData()
+}
