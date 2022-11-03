@@ -20,4 +20,5 @@ export let cardsManager = {
 };
 
 function deleteButtonHandler(clickEvent) {
+    // let btn = document.querySelector(".")
 }

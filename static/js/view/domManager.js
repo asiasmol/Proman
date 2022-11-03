@@ -9,7 +9,7 @@ export let domManager = {
     },
     addEventListener(parentIdentifier, eventType, eventHandler) {
         const parent = document.querySelector(parentIdentifier);
-        console.log(parent)
+        // console.log(parent)
         if (parent) {
             parent.addEventListener(eventType, eventHandler);
         } else {
