@@ -16,11 +16,11 @@ export let cardsManager = {
                 "click",
                 deleteButtonHandler
             );
-            domManager.addEventListener(
-                `.card-add[data-board-id="${boardId}"]`,
-                'click',
-                addCardButtonHandler);
         }
+            // domManager.addEventListener(
+            //     `.card-add[data-board-id="${boardId}"]`,
+            //     'click',
+            //     addCardButtonHandler);}
     },
 };
 
@@ -31,6 +31,6 @@ function deleteButtonHandler(clickEvent) {
 }
 
 
-function addCardButtonHandler(clickEvent) {
-    domManager.addChild(`.card[data-card-id="${card.id}"]`, cardContent)
-}
+// function addCardButtonHandler(clickEvent) {
+//     const boardId = clickEvent.target.dataset.boardId;
+//     cardsManager.loadCards(boardId);}
