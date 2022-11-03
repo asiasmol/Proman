@@ -10,13 +10,12 @@
 
 .board-container {
   padding: 50px;
-  background-color: #085900;
+  background-color: #343a40;
   text-align: center;
 }
 
 .board {
-  padding:10px;
-  background-color: yellow;
+  background-color: white;
 }
 
 .board-header{
@@ -32,6 +31,10 @@
 }
 
 /*   Start global   */
+
+body {
+    background-color: #343a40;
+}
 
 .logo {
   padding: 10px;
