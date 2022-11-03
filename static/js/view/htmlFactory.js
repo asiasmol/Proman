@@ -21,13 +21,19 @@ export function htmlFactory(template) {
 }
 
 function boardBuilder(board) {
-    return `<div class="board-container">
-                <div class="board" data-board-id=${board.id}>${board.title}</div>
+    // console.log(board)
+    return `<div class="board-container card-header" >
+                <div class="card-header d-flex justify-content-center">${board.title}
                 <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
+                <button>Add Card</button></div>
+                
+                <div class="card-header board card-group card" data-board-id=${board.id}>
+                </div>
             </div>`;
 }
 
 function cardBuilder(card) {
-    return `<div class="card" data-card-id="${card.id}">${card.title}</div>`;
+    return `<div class="card-body card" data-card-id="${card.id}">${card.title}</div>
+           `;
 }
 
