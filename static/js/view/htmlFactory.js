@@ -56,7 +56,7 @@ function boardBuilder(board) {
                     <div class="d-flex justify-content-center">${board.title}</div>
                     <div class="d-flex justify-content-center">
                     <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
-                    <button class="">Add Card</button></div>
+                    <button class="card-add" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#CardModal" data-board-id="${board.id}">Add Card</button></div>
                 </div>
                     
                  
@@ -75,12 +75,12 @@ function boardBuilder(board) {
                       Done
                     </div>
                   </div>
-               </div>
+               
                <div class="board" data-board-id=${board.id}></div>
                  
                   
-                   
-             </div>
+             </div>      
+             
                `;
 }
 
