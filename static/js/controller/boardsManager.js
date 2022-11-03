@@ -20,9 +20,9 @@ export let boardsManager = {
         const boards = await dataHandler.getBoards();
         // console.log(boards)
         for (let board of boards) {
-            console.log(board)
+            // console.log(board)
             const boardBuilder = htmlFactory(htmlTemplates.board);
-            console.log(boardBuilder)
+            // console.log(boardBuilder)
             const content = boardBuilder(board);
             domManager.addChild("#root", content);
             domManager.addEventListener(
