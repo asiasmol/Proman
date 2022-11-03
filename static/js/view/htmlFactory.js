@@ -20,46 +20,14 @@ export function htmlFactory(template) {
     };
 }
 
-// function boardBuilder(board) {
-//     // console.log(board)
-//     return `<div class="board-container card-header" >
-//                 <div class="card-header">
-//                     <div class="d-flex justify-content-center">${board.title}</div>
-//                     <div class="d-flex justify-content-center">
-//                     <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
-//                     <button class="">Add Card</button></div>
-//                 </div>
-//                     <div><table class="table table-bordered table-dark">
-//                         <thead>
-//                             <tr>
-//                                 <th scope="col">New</th>
-//                                 <th scope="col">In Progress</th>
-//                                 <th scope="col">Testing</th>
-//                                 <th scope="col">Done</th>
-//                             </tr>
-//                         </thead>
-//                         <tbody>
-//                             <tr> <th><div class="board" data-board-id=${board.id}>
-//                                     </div></th></tr>
-//                         </tbody>
-//                     </table>
-//                     </div>
-//              </div>
-//                `;
-// }
-
-
 function boardBuilder(board) {
-    // console.log(board)
     return `<div class="board-container card-header" >
                 <div class="card-header">
-                    <div class="d-flex justify-content-center">${board.title}</div>
+                    <div class="d-flex justify-content-center title-board" id="title-board" data-board-id="${board.id}">${board.title}</div>
                     <div class="d-flex justify-content-center">
                     <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
                     <button class="card-add" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#CardModal" data-board-id="${board.id}">Add Card</button></div>
                 </div>
-                    
-                 
                <div class="container">
                   <div class="row">
                     <div class="col d-flex justify-content-center">
@@ -75,14 +43,12 @@ function boardBuilder(board) {
                       Done
                     </div>
                   </div>
-               
                <div class="board" data-board-id=${board.id}></div>
-                 
-                  
-             </div>      
-             
+             </div>
+
                `;
 }
+
 
 function cardBuilder(card) {
     return `<div class="row">

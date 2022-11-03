@@ -100,6 +100,13 @@ def get_cards_for_board(board_id: int):
     """
     return queries.get_cards_for_board(board_id)
 
+@app.route('/api/boards/<boardTitleAndId>', methods=['POST'])
+@json_response
+def update_title_board(boardTitleAndId):
+    list_title_id = boardTitleAndId.split(",")
+    title = list_title_id[0]
+    board_id = list_title_id[1]
+    queries.update_title_board(title, int(board_id))
 
 def main():
     app.run(debug=True)
