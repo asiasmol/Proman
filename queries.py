@@ -77,3 +77,12 @@ def add_new_board(board):
                     """
     data_manager.execute_insert(query,
                                 {'board': board})
+
+def update_board_title(title, board_id):
+    data_manager.execute_update(
+        """
+        UPDATE boards
+        SET title = (%(title)s)
+        WHERE id=%(id)s
+        """
+        , {"title": title, "id": board_id})
