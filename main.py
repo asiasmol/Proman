@@ -5,9 +5,6 @@ from util import json_response
 from dotenv import load_dotenv
 from flask import Flask, render_template, url_for, request, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
-<< << << << < Temporary merge branch 1
-== == == == =
->>>>>>>> > Temporary merge branch 2
 
 mimetypes.add_type('application/javascript', '.js')
 app = Flask(__name__)
@@ -27,14 +24,9 @@ def get_logged_user():
 
 @app.route("/")
 def index():
-
-
-<< << << << < Temporary merge branch 1
-if 'id' in session:
-    return render_template('index.html', logged_user=get_logged_user())
-== == == == =
->>>>>>>> > Temporary merge branch 2
-return render_template('index.html')
+    if 'id' in session:
+        return render_template('index.html', logged_user=get_logged_user())
+    return render_template('index.html')
 
 
 @app.route("/registration", methods=['GET'])
@@ -120,21 +112,25 @@ def get_cards_for_board(board_id: int):
     return queries.get_cards_for_board(board_id)
 
 
-@app.route("/api/create/card/", methods=["POST"])
+@app.route("/api/boards/<int:board_id>/add_card", methods=["POST"])
 @json_response
-def create_new_card():
-    card = request.get_json()
-    card_title = card['title']
-    board_id = card['board_id']
-    queires.create_card(card_title, board_id)
-    return 'card created'
+def add_new_card(board_id):
+    title = request.get_json()
+    first_col = queires.get_first_column_of_board(board_id)
+    return queires.add_new_card(first_col["id"], title)
 
 
-@app.route("/api/<card_id>/delete_card/", methods=['DELETE'])
+@app.route("/api/cards/<int:card_id>/change_name", methods=["PUT"])
 @json_response
-def delete_card_from_board(card_id):
-    if request.method == "DELETE":
-        queires.delete_card_from_board(card_id)
+def rename_card(card_id: int):
+    name = request.get_json()
+    return queires.update_card_title(card_id, name)
+
+@app.route("/api/cards/<int:card_id>/delete", methods=["DELETE"])
+@json_response
+def delete_card(card_id):
+    queires.delete_card(card_id)
+    return "Card deleted"
 
 
 def main():
