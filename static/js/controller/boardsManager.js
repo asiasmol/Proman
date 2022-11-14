@@ -3,24 +3,18 @@ import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
 import {cardsManager} from "./cardsManager.js";
 let saveButton = document.getElementById('save-button')
-
+let spaceForBoards = document.querySelector('#root')
 
 //
 // domManager.addEventListener(
 //                 `.title-board[data-board-id="${board.id}"]`,
 //                 "click", log);
 
-
-
-saveButton.addEventListener('click', () => {
+saveButton.addEventListener('click', async () => {
     let nameBoard = document.querySelector('#new-board').value
-    let data = {'nameBoard': nameBoard}
-    fetch('/api/boards/add',{
-        "method": 'POST',
-        "headers": {"Content-Type": "application/json"},
-        "body": JSON.stringify(data)
-    })
-    location.reload(true)
+    await dataHandler.addBoard(nameBoard)
+    spaceForBoards.innerHTML = ''
+    await boardsManager.loadBoards()
 })
 
 export let boardsManager = {
@@ -57,9 +51,10 @@ function showHideButtonHandler(clickEvent) {
 //     cardsManager.loadCards(boardId);
 // }
 
-function changeTitle(clickEvent) {
+async function changeTitle(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
     let newName = prompt("new name table?")
-    dataHandler.updateTitleBoard([newName,boardId])
-    location.reload(true)
+    await dataHandler.updateTitleBoard([newName,boardId])
+    spaceForBoards.innerHTML = ''
+    await boardsManager.loadBoards()
 }

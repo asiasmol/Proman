@@ -83,14 +83,11 @@ def logout():
 def get_boards():
     return queries.get_boards()
 
-@app.route('/api/boards/add', methods=['POST'])
-def save_boards():
-    name_new_board = request.get_json()
-    print(name_new_board['nameBoard'])
-    queries.add_new_board(name_new_board['nameBoard'])
-    print("dupa")
-    return redirect(url_for('index'))
-
+@app.route('/api/boards/add/<string:nameBoard>', methods=['POST'])
+@json_response
+def save_boards(nameBoard):
+    print(nameBoard)
+    queries.add_new_board(nameBoard)
 @app.route("/api/boards/<int:board_id>/cards/")
 @json_response
 def get_cards_for_board(board_id: int):
@@ -107,6 +104,17 @@ def update_title_board(boardTitleAndId):
     title = list_title_id[0]
     board_id = list_title_id[1]
     queries.update_title_board(title, int(board_id))
+
+@app.route('/api/boards/card/<cardTitleAndboardIdAndStatusId>', methods=['POST'])
+@json_response
+def save_new_card(cardTitleAndboardIdAndStatusId):
+    list_data_for_new_card = cardTitleAndboardIdAndStatusId.split(",")
+    board_id = list_data_for_new_card[1]
+    status_id = list_data_for_new_card[2]
+    title = list_data_for_new_card[0]
+    print(list_data_for_new_card)
+    print(board_id, status_id, title)
+    queries.add_new_card(board_id, status_id, title)
 
 def main():
     app.run(debug=True)

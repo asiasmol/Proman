@@ -86,3 +86,12 @@ def update_title_board(title, id):
                         """
     data_manager.execute_insert(query,
                                 {'title': title, 'id': id})
+
+def add_new_card(board_id, status_id, title):
+    query = """
+                    INSERT INTO cards(board_id, status_id, title, card_order)
+                    VALUES (%(board_id)s, %(status_id)s, %(title)s, 1)
+                    WHERE ;
+                        """
+    data_manager.execute_insert(query,
+                                {'board_id': board_id, 'status_id': status_id, 'title': title })

@@ -26,7 +26,7 @@ function boardBuilder(board) {
                     <div class="d-flex justify-content-center title-board" id="title-board" data-board-id="${board.id}">${board.title}</div>
                     <div class="d-flex justify-content-center">
                     <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
-                    <button class="card-add" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#CardModal" data-board-id="${board.id}">Add Card</button></div>
+                    <button class="card-add" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#CardModal"      ="${board.id}">Add Card</button></div>
                 </div>
                <div class="container">
                   <div class="row">
@@ -51,6 +51,7 @@ function boardBuilder(board) {
 
 
 function cardBuilder(card) {
+    console.log(card)
     return `<div class="row">
                 <div class="col">
                     <div class="card-body card" data-card-id="${card.id}">${card.title}</div>
