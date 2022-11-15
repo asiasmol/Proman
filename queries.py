@@ -38,6 +38,7 @@ def get_cards_for_board(board_id):
 
     return matching_cards
 
+
 def add_user(new_user):
     query = """
             INSERT INTO users
@@ -45,7 +46,8 @@ def add_user(new_user):
             VALUES (%(user_name)s, %(password)s);
                 """
     data_manager.execute_insert(query,
-                   {'user_name': new_user['user_name'], 'password': new_user['password']})
+                                {'user_name': new_user['user_name'], 'password': new_user['password']})
+
 
 def get_user_name(user_name):
     return data_manager.execute_select(
@@ -78,6 +80,7 @@ def add_new_board(board):
     data_manager.execute_insert(query,
                                 {'board': board})
 
+
 def update_title_board(title, id):
     query = """
                 UPDATE boards 
@@ -87,6 +90,7 @@ def update_title_board(title, id):
     data_manager.execute_insert(query,
                                 {'title': title, 'id': id})
 
+
 def add_new_card(board_id, status_id, title):
     query = """
                     INSERT INTO cards(board_id, status_id, title, card_order)
@@ -94,4 +98,16 @@ def add_new_card(board_id, status_id, title):
                     WHERE ;
                         """
     data_manager.execute_insert(query,
-                                {'board_id': board_id, 'status_id': status_id, 'title': title })
+                                {'board_id': board_id, 'status_id': status_id, 'title': title})
+
+
+def get_columns_by_board_id(board_id):
+    return data_manager.execute_select(
+        """
+        SELECT * FROM statuses
+        WHERE statuses.board_id = %(board_id)s
+        ;
+        """
+        , {'board_id': board_id}
+    )
+

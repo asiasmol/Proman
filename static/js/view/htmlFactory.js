@@ -1,11 +1,13 @@
 export const htmlTemplates = {
     board: 1,
-    card: 2
+    card: 2,
+    column: 3
 }
 
 export const builderFunctions = {
     [htmlTemplates.board]: boardBuilder,
-    [htmlTemplates.card]: cardBuilder
+    [htmlTemplates.card]: cardBuilder,
+    [htmlTemplates.column]: columnBuilder
 };
 
 export function htmlFactory(template) {
@@ -26,45 +28,27 @@ function boardBuilder(board) {
                     <div class="d-flex justify-content-center title-board" id="title-board" data-board-id="${board.id}">${board.title}</div>
                     <div class="d-flex justify-content-center">
                     <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
-                    <button class="card-add" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#CardModal"      ="${board.id}">Add Card</button></div>
+                    <button class="card-add" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#CardModal" data-board-id="${board.id}">Add Card</button></div>
                 </div>
-               <div class="container">
-                  <div class="row">
-                    <div class="col d-flex justify-content-center">
-                      New
-                    </div>
-                    <div class="col order-12 d-flex justify-content-center">
-                      In Progress
-                    </div>
-                    <div class="col order-1 d-flex justify-content-center">
-                      Testing
-                    </div>
-                    <div class="col order-1 d-flex justify-content-center">
-                      Done
-                    </div>
-                  </div>
-               <div class="board" data-board-id=${board.id}></div>
+                <div class="column row" data-board-id=${board.id}></div>
              </div>
-
                `;
 }
 
+function columnBuilder(column) {
+    return `<div class="col card">
+                 <div class="card-header d-flex justify-content-center">${column.title.toUpperCase()}</div>
+                    <div class="card-body">
+                        <div class="board-column-content" data-status-id="${column.id}" data-board-id="${column.board_id}"></div>
+                    </div>
+                 </div>
+             </div>`;
+}
 
 function cardBuilder(card) {
-    console.log(card)
-    return `<div class="row">
-                <div class="col">
-                    <div class="card-body card" data-card-id="${card.id}">${card.title}</div>
-                </div>
-                <div class="col order-12">
-               
-                </div>
-                <div class="col order-1">
-               
-                </div>
-                <div class="col order-1">
-                
-                </div>
+    return `
+            <div class="card" data-card-id="${card.id}" data-card-status-id="${card.status_id}" data-board-id='${card.board_id}' data-card-order="${card.card_order}">
+                <div class="card-header d-flex justify-content-center" data-card-id="${card.id}">${card.title}</div>
             </div>
            `;
 }
