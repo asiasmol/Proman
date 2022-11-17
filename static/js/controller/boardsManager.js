@@ -5,13 +5,12 @@ import {cardsManager} from "./cardsManager.js";
 import {columnManager} from "./columnManager.js";
 
 let saveNewBoardBtn = document.getElementById('save-button')
-let spaceForBoards = document.querySelector('#root')
+let bodyBoards = document.querySelector('#root')
 
-// refaktor jutro
 saveNewBoardBtn.addEventListener('click', async () => {
     let nameBoard = document.querySelector('#new-board').value
     await dataHandler.addBoard(nameBoard)
-    spaceForBoards.innerHTML = ''
+    bodyBoards.innerHTML = ''
     await boardsManager.loadBoards()
 })
 
@@ -29,7 +28,7 @@ export let boardsManager = {
             );
             domManager.addEventListener(
                 `#title-board[data-board-id="${board.id}"]`,
-                "dblclick", changeTitle
+                "dblclick", changeTitleBoard
             );
         }
     },
@@ -53,11 +52,11 @@ async function showHideButtonHandler(clickEvent) {
     }
 }
 
-async function changeTitle(clickEvent) {
+async function changeTitleBoard(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
-    let nameTable = prompt("new name table?")
+    let nameTable = prompt("New board title:")
     await dataHandler.updateTitleBoard(nameTable, boardId)
-    spaceForBoards.innerHTML = ''
+    bodyBoards.innerHTML = ''
     await boardsManager.loadBoards()
 }
 

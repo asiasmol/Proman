@@ -108,21 +108,21 @@ def get_columns(board_id):
     return queries.get_columns_by_board_id(board_id)
 
 
-# @app.route('/api/boards/card/<cardTitleAndboardIdAndStatusId>', methods=['POST'])
-# @json_response
-# def save_new_card(cardTitleAndboardIdAndStatusId):
-#     list_data_for_new_card = cardTitleAndboardIdAndStatusId.split(",")
-#     board_id = list_data_for_new_card[1]
-#     status_id = list_data_for_new_card[2]
-#     title = list_data_for_new_card[0]
-#     print(list_data_for_new_card)
-#     print(board_id, status_id, title)
-#     queries.add_new_card(board_id, status_id, title)
-
 @app.route('/api/columns/<string:title>/<int:board_id>', methods=['POST'])
 @json_response
 def save_new_column(title, board_id):
     queries.add_new_column(title, board_id)
+
+@app.route('/api/rename/columns/<string:title>/<int:id>', methods=['POST'])
+@json_response
+def update_title_column(title, id):
+    queries.update_title_column(title, id)
+
+@app.route('/api/boards/card/<int:board_id>/<int:status_id>/<string:title>', methods=['POST'])
+@json_response
+def save_new_card(board_id, status_id, title):
+    print(board_id, status_id, title)
+    queries.add_new_card(board_id, status_id, title)
 
 def main():
     app.run(debug=True)

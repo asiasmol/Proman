@@ -1,19 +1,7 @@
 import {dataHandler} from "../data/dataHandler.js";
 import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
-let saveButtonCard = document.querySelector('#save-button-card')
-
-
-// function save_new_card(boardId) {
-//     saveButtonCard.addEventListener('click', async () => {
-//         let spaceForCards = document.querySelector(`.board`)
-//         spaceForCards.innerHTML = ''
-//         let nameNewCard = document.querySelector('#new-card').value
-//         await dataHandler.createNewCard([nameNewCard, boardId, 1])
-//
-//         await cardsManager.loadCards(boardId)
-//     })
-// }
+import {columnManager} from "./columnManager.js";
 
 export let cardsManager = {
     loadCards: async function (boardId) {
@@ -21,17 +9,24 @@ export let cardsManager = {
         for (let card of cards) {
             const cardBuilder = htmlFactory(htmlTemplates.card);
             const content = cardBuilder(card);
-                domManager.addChild(`.board-column-content[data-status-id="${card.status_id}"][data-board-id="${boardId}"]`, content);
-                domManager.addEventListener(
-                `.card[data-card-id="${card.id}"]`,
+            domManager.addChild(`.board-column-content[data-status-id="${card.status_id}"][data-board-id="${boardId}"]`, content);
+            domManager.addEventListener(
+                `.card-add[data-board-id="${boardId}"]`,
                 "click",
-                deleteButtonHandler
+                addNewCard
             );
         }
-        // save_new_card(boardId)
     },
 };
 
-function deleteButtonHandler(clickEvent) {
-    // let btn = document.querySelector(".")
+async function addNewCard(clickEvent) {
+    const boardId = clickEvent.target.dataset.boardId
+    const statusId = document.querySelector(`.board-column-content[data-board-id="${boardId}"]`).dataset.statusId
+    let nameColumn = prompt("New card title: ")
+    await dataHandler.createNewCard(boardId, statusId, nameColumn)
+    const bodyBoards = document.querySelector(`.column[data-board-id="${boardId}"]`)
+    bodyBoards.innerHTML = ''
+    await columnManager.loadColumn(boardId)
+    await cardsManager.loadCards(boardId)
 }
+

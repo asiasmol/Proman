@@ -23,12 +23,14 @@ export let dataHandler = {
     createNewBoard: async function (boardTitle) {
         // creates new board, saves it and calls the callback function with its data
     },
-    // createNewCard: async function (cardTitleAndboardIdAndStatusId) {
-    //     console.log(cardTitleAndboardIdAndStatusId)
-    //     return await apiPost(`/api/boards/card/${cardTitleAndboardIdAndStatusId}`)
-    // },
+    createNewCard: async function (boardId, statusId, title) {
+        return await apiPost(`/api/boards/card/${boardId}/${statusId}/${title}`)
+    },
     updateTitleBoard: async function (title, board_id) {
         return await apiPost(`/api/boards/${title}/${board_id}`)
+    },
+    updateTitleColumn: async function (title, id) {
+        return await apiPost(`/api/rename/columns/${title}/${id}`)
     },
     createNewColumn: async function (title, boardId) {
         return await apiPost(`/api/columns/${title}/${boardId}`)

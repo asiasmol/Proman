@@ -16,9 +16,7 @@ export function htmlFactory(template) {
     if (builderFunctions.hasOwnProperty(template)) {
         return builderFunctions[template];
     }
-
     console.error("Undefined template: " + template);
-
     return () => {
         return "";
     };
@@ -37,8 +35,8 @@ function boardBuilder(board) {
 
 function columnBuilder(column) {
     return `<div class="col card">
-                 <div class="card-header d-flex justify-content-center column-title" id="column-title" data-column-id="column.id">${column.title.toUpperCase()}</div>
-                    <div class="card-body">
+                 <div class="card-header d-flex justify-content-center column-title" id="column-title" data-status-id="${column.id}" data-board-id="${column.board_id}">${column.title.toUpperCase()}</div>
+                    <div class="card-body" data-board-id="${column.board_id}">
                         <div class="board-column-content" data-status-id="${column.id}" data-board-id="${column.board_id}"></div>
                     </div>
                  </div>
@@ -53,9 +51,9 @@ function cardBuilder(card) {
            `;
 }
 
-function buttonsBuilder(board_id){
+function buttonsBuilder(board_id) {
     return `<div class="card-footer text-muted d-flex justify-content-center card-body align-self-end" data-board-id=${board_id}>
-                <button class="card-add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#CardModal" data-board-id="${board_id}">Add Card</button>
+                <button class="card-add" data-board-id="${board_id}">Add Card</button>
                 <button class="add-column" data-board-id="${board_id}">Add Column</button>
             </div>
             `;

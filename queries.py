@@ -32,6 +32,7 @@ def get_cards_for_board(board_id):
         """
         SELECT * FROM cards
         WHERE cards.board_id = %(board_id)s
+        ORDER BY cards.card_order
         ;
         """
         , {"board_id": board_id})
@@ -91,21 +92,13 @@ def update_title_board(title, id):
                                 {'title': title, 'id': id})
 
 
-def add_new_card(board_id, status_id, title):
-    query = """
-                    INSERT INTO cards(board_id, status_id, title, card_order)
-                    VALUES (%(board_id)s, %(status_id)s, %(title)s, 1)
-                    WHERE ;
-                        """
-    data_manager.execute_insert(query,
-                                {'board_id': board_id, 'status_id': status_id, 'title': title})
-
 
 def get_columns_by_board_id(board_id):
     return data_manager.execute_select(
         """
         SELECT * FROM statuses
         WHERE statuses.board_id = %(board_id)s
+        ORDER BY statuses.id
         ;
         """
         , {'board_id': board_id}
@@ -118,3 +111,22 @@ def add_new_column(title, board_id):
                         """
     data_manager.execute_insert(query,
                                 {'title': title, 'board_id': board_id})
+
+def update_title_column(title, id):
+    query = """
+               UPDATE statuses 
+               SET title = %(title)s
+               WHERE id = %(id)s
+                            """
+    data_manager.execute_insert(query,
+                                {'title': title, 'id': id})
+
+
+
+def add_new_card(board_id, status_id, title):
+    query = """
+                INSERT INTO cards(board_id, status_id, title, card_order)
+                VALUES (%(board_id)s, %(status_id)s, %(title)s, 1) ;
+                        """
+    data_manager.execute_insert(query,
+                                {'board_id': board_id, 'status_id': status_id, 'title': title})
