@@ -4,16 +4,16 @@ import {domManager} from "../view/domManager.js";
 let saveButtonCard = document.querySelector('#save-button-card')
 
 
-function save_new_card(boardId) {
-    saveButtonCard.addEventListener('click', async () => {
-        let spaceForCards = document.querySelector(`.board`)
-        spaceForCards.innerHTML = ''
-        let nameNewCard = document.querySelector('#new-card').value
-        await dataHandler.createNewCard([nameNewCard, boardId, 1])
-
-        await cardsManager.loadCards(boardId)
-    })
-}
+// function save_new_card(boardId) {
+//     saveButtonCard.addEventListener('click', async () => {
+//         let spaceForCards = document.querySelector(`.board`)
+//         spaceForCards.innerHTML = ''
+//         let nameNewCard = document.querySelector('#new-card').value
+//         await dataHandler.createNewCard([nameNewCard, boardId, 1])
+//
+//         await cardsManager.loadCards(boardId)
+//     })
+// }
 
 export let cardsManager = {
     loadCards: async function (boardId) {
@@ -28,7 +28,7 @@ export let cardsManager = {
                 deleteButtonHandler
             );
         }
-        save_new_card(boardId)
+        // save_new_card(boardId)
     },
 };
 

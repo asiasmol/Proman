@@ -111,3 +111,10 @@ def get_columns_by_board_id(board_id):
         , {'board_id': board_id}
     )
 
+def add_new_column(title, board_id):
+    query = """
+                INSERT INTO statuses(title, board_id)
+                VALUES (%(title)s, %(board_id)s)
+                        """
+    data_manager.execute_insert(query,
+                                {'title': title, 'board_id': board_id})

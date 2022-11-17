@@ -4,11 +4,11 @@ import {domManager} from "../view/domManager.js";
 import {cardsManager} from "./cardsManager.js";
 import {columnManager} from "./columnManager.js";
 
-let saveButton = document.getElementById('save-button')
+let saveNewBoardBtn = document.getElementById('save-button')
 let spaceForBoards = document.querySelector('#root')
 
-
-saveButton.addEventListener('click', async () => {
+// refaktor jutro
+saveNewBoardBtn.addEventListener('click', async () => {
     let nameBoard = document.querySelector('#new-board').value
     await dataHandler.addBoard(nameBoard)
     spaceForBoards.innerHTML = ''
@@ -23,7 +23,7 @@ export let boardsManager = {
             const content = boardBuilder(board);
             domManager.addChild("#root", content);
             domManager.addEventListener(
-                `.toggle-board-button[data-board-id="${board.id}"]`,
+                `.title-board[data-board-id="${board.id}"]`,
                 "click",
                 showHideButtonHandler
             );
@@ -38,14 +38,26 @@ export let boardsManager = {
 
 async function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
-    await columnManager.loadColumn(boardId)
-    await cardsManager.loadCards(boardId);
+    const board = document.querySelector(`.board-container[data-board-id="${boardId}"]`);
+    const boardBody = board.children[1];
+    const buttonsBody = document.querySelector(`.button-container[data-board-id="${boardId}"]`)
+    buttonsBody.innerHTML = ``;
+    boardBody.classList.toggle('board-hidden');
+    if (!boardBody.classList.contains('board-hidden')) {
+        boardBody.innerHTML = ``;
+        const buttonBuilder = htmlFactory(htmlTemplates.buttons);
+        const contentBtn = buttonBuilder(boardId);
+        domManager.addChild(`.button-container[data-board-id="${boardId}"]`, contentBtn)
+        await columnManager.loadColumn(boardId);
+        await cardsManager.loadCards(boardId);
+    }
 }
 
 async function changeTitle(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
-    let newName = prompt("new name table?")
-    await dataHandler.updateTitleBoard([newName, boardId])
+    let nameTable = prompt("new name table?")
+    await dataHandler.updateTitleBoard(nameTable, boardId)
     spaceForBoards.innerHTML = ''
     await boardsManager.loadBoards()
 }
+

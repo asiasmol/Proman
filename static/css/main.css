@@ -24,3 +24,7 @@
 
 /*   End media query   */
 
+.board-hidden{
+    display: none !important;
+}
+
