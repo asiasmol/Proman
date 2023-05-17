@@ -7,7 +7,7 @@ workflow, or task tracking. Add files, checklists,
 or even automation: Customize it all for how your team works best.
 
 
-![Nagranie z ekranu 2023-05-17 o 17 17 41](https://github.com/asiasmol/Proman/assets/102509876/2afe0b9e-1f24-4684-9c5d-f2b129f51c87)
+![Proman](https://github.com/asiasmol/Proman/assets/102509876/7715d92b-baa1-433a-94fc-fdddca1b28d8)
 
 
 
